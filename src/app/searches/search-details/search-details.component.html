@@ -1,0 +1,26 @@
+<div *ngIf="search" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="search._id">Search Details</h2>
+    <h2 *ngIf="!search._id">New Search</h2>
+  </div>
+</div>
+<div *ngIf="search" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="search-text">Text</label>
+      <input class="form-control" name="search-text" [(ngModel)]="search.text" placeholder="Text"/>
+    </div>
+    <div class="form-group">
+      <label for="search-location-latitude">Latitude</label>
+      <input class="form-control" name="search-location-latitude" [(ngModel)]="search.location.latitude"
+             placeholder="Latitude"/>
+    </div>
+    <div class="form-group">
+      <label for="search-location-longitude">Longitude</label>
+      <input class="form-control" name="search-location-longitude" [(ngModel)]="search.location.longitude"
+             placeholder="Longitude"/>
+    </div>
+    <button class="btn btn-primary" *ngIf="!search._id" (click)="createSearch(search)">Create</button>
+    <button class="btn btn-danger" *ngIf="search._id" (click)="deleteSearch(search._id)">Delete</button>
+  </form>
+</div>

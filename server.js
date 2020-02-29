@@ -8,10 +8,11 @@ var SEARCHES_COLLECTION = "searches";
 var app = express();
 app.use(bodyParser.json());
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
 var db;
 
-// Connect to the database before starting the application server.
 mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/test", function (err, client) {
   if (err) {
     console.log(err);
@@ -72,6 +73,20 @@ app.post("/api/searches", function (req, res) {
  *    DELETE: deletes search by id
  */
 app.get("/api/searches/:id", function (req, res) {
+  db.collection(SEARCHES_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get search");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
 });
 app.delete("/api/searches/:id", function (req, res) {
+  db.collection(SEARCHES_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+    if (err) {
+      handleError(res, err.message, "Failed to delete search");
+    } else {
+      res.status(200).json(req.params.id);
+    }
+  });
 });
