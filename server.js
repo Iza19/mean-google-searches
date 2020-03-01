@@ -93,5 +93,5 @@ app.delete("/api/searches/:id", function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.send('hello world')
+  res.sendFile('index.html')
 })
