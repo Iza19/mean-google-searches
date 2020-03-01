@@ -73,7 +73,7 @@ app.post("/api/searches", function (req, res) {
  *    DELETE: deletes search by id
  */
 app.get("/api/searches/:id", function (req, res) {
-  db.collection(SEARCHES_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+  db.collection(SEARCHES_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get search");
     } else {
@@ -82,7 +82,7 @@ app.get("/api/searches/:id", function (req, res) {
   });
 });
 app.delete("/api/searches/:id", function (req, res) {
-  db.collection(SEARCHES_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+  db.collection(SEARCHES_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete search");
     } else {
@@ -93,10 +93,6 @@ app.delete("/api/searches/:id", function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname+'/index.html'))
-})
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
 
-
-
-app.use('/', router);
-app.listen(process.env.port || 3000);
