@@ -95,3 +95,8 @@ app.delete("/api/searches/:id", function (req, res) {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname+'/index.html'))
 })
+
+
+
+app.use('/', router);
+app.listen(process.env.port || 3000);
