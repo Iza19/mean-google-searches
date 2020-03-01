@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
+var router = express.Router();
 
 var SEARCHES_COLLECTION = "searches";
 
@@ -91,8 +92,8 @@ app.delete("/api/searches/:id", function (req, res) {
   });
 });
 
-
-app.get('/', function (req, res) {
+router.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
+
 
