@@ -5,6 +5,7 @@ import {Http, Response} from '@angular/http';
 @Injectable()
 export class SearchService {
   private searchesUrl = '/api/searches';
+  private googleTrends = require('google-trends-api');
 
   constructor(private http: Http) {
   }
@@ -19,6 +20,8 @@ export class SearchService {
 
   // post("/api/searches")
   createSearch(newSearch: Search): Promise<void | Search> {
+    const res = this.getTrends(newSearch.text);
+    console.log(res);
     return this.http.post(this.searchesUrl, newSearch)
       .toPromise()
       .then(response => response.json() as Search)
@@ -36,8 +39,18 @@ export class SearchService {
   }
 
   private handleError(error: any) {
-    let errMsg = (error.message) ? error.message :
+    const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg);
+  }
+
+  private getTrends(text: String) {
+    this.googleTrends.interestOverTime({ keyword: text }, function (err, results) {
+      if (err) {
+        console.error('there was an error!', err);
+      } else {
+        console.log('my sweet sweet results', results);
+      }
+    });
   }
 }

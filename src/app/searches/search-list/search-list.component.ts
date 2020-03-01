@@ -43,7 +43,6 @@ export class SearchListComponent implements OnInit {
       }
     };
 
-    // By default, a newly-created contact will have the selected state.
     this.selectSearch(search);
   }
 
